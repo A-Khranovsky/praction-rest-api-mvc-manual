@@ -1,16 +1,11 @@
 version: "2"
 
 services:
-  mysql:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
+  php-apache:
+    build:
+      context: .
+      dockerfile: .docker/php-apache/Dockerfile
     volumes:
-      - .:/home/root
+      - .:/var/www/html
     ports:
-      - "3306:3306"
-    env_file:
-      - .env
+      - "80:80"
