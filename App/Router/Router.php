@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Router;
-
 
 use Exception;
 
@@ -30,7 +28,7 @@ class Router
                 $method = (string)$uriElements['etc'];
                 break;
             default:
-                throw new Exception('Wrong URI');
+                break;
         }
         return new self(
             $uriElements['controller'],
