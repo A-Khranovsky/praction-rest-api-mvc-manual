@@ -8,37 +8,37 @@ class Tasks extends Controller
 {
     public function index()
     {
-        return 'Yes';
+        return 'index';
     }
 
     public function create()
     {
-        return null;
+        return 'create';
     }
 
     public function store()
     {
-        return null;
+        return 'store';
     }
 
     public function show()
     {
-        return null;
+        return 'show';
     }
 
     public function edit()
     {
-        return null;
+        return 'edit';
     }
 
     public function update()
     {
-        return null;
+        return 'update';
     }
 
     public function destroy()
     {
-        return null;
+        return 'delete';
     }
 
 }
