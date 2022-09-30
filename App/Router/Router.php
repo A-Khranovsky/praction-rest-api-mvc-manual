@@ -3,7 +3,6 @@
 namespace App\Router;
 
 use App\Controllers\Controller;
-use App\Interfaces\ControllerActionRunner;
 use Exception;
 
 class Router
@@ -12,12 +11,13 @@ class Router
     private const uriTemplate = [
         'api' => null,
         'controller' => null,
-        'etc' => null
+        'etc' => null,
+        'queryParams' => null
     ];
 
     public static function parse($uri)
     {
-        $uri = array_slice(explode('/', $uri), 1);
+        $uri = array_slice(preg_split( "/[\/?]/", $uri ), 1);
         foreach (Router::uriTemplate as $key => $item) {
             $uriElements[$key] = current($uri) !== false ? current($uri) : null;
             next($uri);
@@ -39,7 +39,7 @@ class Router
         );
     }
 
-    private function __construct($controllerName = null, $id = null, $action = null)
+    private function __construct($controllerName = null, $id = null, $action = null, $queryParams = null)
     {
         $this->queryParams = $_REQUEST;
 
@@ -58,7 +58,7 @@ class Router
         $this->id = $id;
         $this->action = $action;
 
-        $this->controllerAction = Controller::run($this->queryType, $controllerName, $id, $action);
+        $this->controllerAction = Controller::run($this->queryType, $controllerName, $id, $action, $queryParams);
     }
 
     public function result()
