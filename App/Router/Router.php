@@ -2,11 +2,13 @@
 
 namespace App\Router;
 
+use App\Controllers\Controller;
+use App\Interfaces\ControllerActionRunner;
 use Exception;
 
 class Router
 {
-    private $queryType, $controller, $id, $queryParams, $method;
+    public $queryType, $controllerName, $id, $queryParams, $action, $controllerAction;
     private const uriTemplate = [
         'api' => null,
         'controller' => null,
@@ -25,7 +27,7 @@ class Router
                 $id = (int)$uriElements['etc'];
                 break;
             case (string)$uriElements['etc']:
-                $method = (string)$uriElements['etc'];
+                $action = (string)$uriElements['etc'];
                 break;
             default:
                 break;
@@ -33,11 +35,11 @@ class Router
         return new self(
             $uriElements['controller'],
             $id,
-            $method
+            $action
         );
     }
 
-    private function __construct($controller, $id = null, $method = null)
+    private function __construct($controllerName = null, $id = null, $action = null)
     {
         $this->queryParams = $_REQUEST;
 
@@ -51,8 +53,16 @@ class Router
                 throw new Exception("Unexpected Header");
             }
         }
-        $this->controller = $controller;
+
+        $this->controllerName = $controllerName;
         $this->id = $id;
-        $this->method = $method;
+        $this->action = $action;
+
+        $this->controllerAction = Controller::run($this->queryType, $controllerName, $id, $action);
+    }
+
+    public function result()
+    {
+        return $this->controllerAction;
     }
 }

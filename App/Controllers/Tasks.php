@@ -4,21 +4,41 @@
 namespace App\Controllers;
 
 
-use App\Router\Router;
-
-class Tasks
+class Tasks extends Controller
 {
-    public $path, $router, $controller;
-
-
-    public function __construct($path)
+    public function index()
     {
-        $this->path = $path;
-        $this->router = Router::parse($path);
-//        $class = 'App\\Controllers\\' . ucfirst($this->router->controller);
-//        $this->model = new $class();
-//        if ($this->router->id) {
-//            $this->model = $this->model->collection[$this->router->id];
-//        }
+        return 'Yes';
     }
+
+    public function create()
+    {
+        return null;
+    }
+
+    public function store()
+    {
+        return null;
+    }
+
+    public function show()
+    {
+        return null;
+    }
+
+    public function edit()
+    {
+        return null;
+    }
+
+    public function update()
+    {
+        return null;
+    }
+
+    public function destroy()
+    {
+        return null;
+    }
+
 }
