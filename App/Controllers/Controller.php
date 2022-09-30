@@ -34,6 +34,7 @@ abstract class Controller
             $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
             return (new $class())->destroy();
         }
+        throw new \Exception('Wrong request');
     }
 
     abstract public function index();
