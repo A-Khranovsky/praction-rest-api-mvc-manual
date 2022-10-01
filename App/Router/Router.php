@@ -33,7 +33,7 @@ class Router
                 break;
         }
         return new self(
-            $uriElements['controller'],
+            $uriElements['controller'] . 'Controller',
             $id,
             $action
         );

@@ -4,11 +4,20 @@
 namespace App\Controllers;
 
 
-class Tasks extends Controller
+use App\Config\Database;
+use App\Models\Task;
+
+class TasksController extends Controller
 {
+    private $taskModel = null;
+
+    public function __construct()
+    {
+        $this->taskModel = new Task();
+    }
     public function index()
     {
-        return 'index';
+        return $this->taskModel->index();
     }
 
     public function create()

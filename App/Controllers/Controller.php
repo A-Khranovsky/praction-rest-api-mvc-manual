@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
-abstract class Controller
+use App\Interfaces\RestApi;
+
+abstract class Controller implements RestApi
 {
     static public function run($methodType, $controllerName, $id, $action, $queryParams)
     {
@@ -36,18 +38,4 @@ abstract class Controller
         }
         throw new \Exception('Wrong request');
     }
-
-    abstract public function index();
-
-    abstract public function create();
-
-    abstract public function store();
-
-    abstract public function show();
-
-    abstract public function edit();
-
-    abstract public function update();
-
-    abstract public function destroy();
 }
