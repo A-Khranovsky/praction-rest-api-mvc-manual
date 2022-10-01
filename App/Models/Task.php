@@ -31,9 +31,22 @@ class Task extends Database implements RestApi
         return $result->fetchAll(Database::FETCH_ASSOC);
     }
 
-    public function create()
+    public function create($description = null, $file = null, $finishDate = null, $urgently = null, $type = null)
     {
-        // TODO: Implement create() method.
+//        $sql = "select * from types;";
+//        $result = $this->pdo->prepare($sql);
+//        $result->execute();
+
+        $sql = "INSERT INTO tasks (description, file, finish_date, urgently, type)
+                    VALUES (:description, :file, :finishDate, :urgently, :type);";
+        $result = $this->pdo->prepare($sql);
+        $type = 'Особисті';
+        $result->bindParam(':description', $description);
+        $result->bindParam(':file', $file);
+        $result->bindParam(':finishDate', $finishDate);
+        $result->bindParam(':urgently', $urgently);
+        $result->bindParam(':type', $type);
+        $result->execute();
     }
 
     public function store()
