@@ -36,11 +36,3 @@ class Database
         }
     }
 }
-
-
-
-//'mysql:host=coffee20.mysql.tools;
-//        port=3306;
-//        dbname=coffee20_khranovskiy',
-//                'coffee20_khranovskiy',
-//                '4k3s6vUNkK5H'
