@@ -17,6 +17,7 @@ class Database
     private const password = '4k3s6vUNkK5H';
     private const database = 'coffee20_khranovskiy';
     private const port = '3306';
+    private const charset = 'utf8';
 
 
     public function __construct()
@@ -26,7 +27,8 @@ class Database
                 ( self::driver. ':' .
                     'host=' . self::host . ';' .
                     'port=' . self::port . ';' .
-                    'dbname=' . self::database,
+                    'dbname=' . self::database . ';' .
+                    'charset=' . self::charset,
                 self::userName,
                 self::password
             );
