@@ -17,7 +17,7 @@ class Router
 
     public static function parse($uri)
     {
-        $uri = array_slice(preg_split( "/[\/?]/", $uri ), 1);
+        $uri = array_slice(preg_split("/[\/?]/", $uri), 1);
         foreach (Router::uriTemplate as $key => $item) {
             $uriElements[$key] = current($uri) !== false ? current($uri) : null;
             next($uri);
@@ -39,9 +39,19 @@ class Router
         );
     }
 
-    private function __construct($controllerName = null, $id = null, $action = null, $queryParams = null)
+    private function __construct($controllerName = null, $id = null, $action = null)
     {
-        $this->queryParams = $_REQUEST;
+        switch (true) {
+            case !empty($_REQUEST):
+                $this->queryParams = $_REQUEST;
+                break;
+            case !empty(file_get_contents("php://input")):
+                $this->queryParams = json_decode(file_get_contents("php://input"), true);
+                break;
+            default:
+                $this->queryParams = null;
+                break;
+        }
 
         $this->queryType = $_SERVER['REQUEST_METHOD'];
         if ($this->queryType == 'POST' && array_key_exists('HTTP_X_HTTP_METHOD', $_SERVER)) {
@@ -53,12 +63,10 @@ class Router
                 throw new Exception("Unexpected Header");
             }
         }
-
-        $this->controllerName = $controllerName;
         $this->id = $id;
         $this->action = $action;
 
-        $this->controllerAction = Controller::run($this->queryType, $controllerName, $id, $action, $queryParams);
+        $this->controllerAction = Controller::run($this->queryType, $controllerName, $id, $action, $this->queryParams);
     }
 
     public function result()

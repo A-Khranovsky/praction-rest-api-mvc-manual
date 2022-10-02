@@ -20,15 +20,16 @@ class TasksController extends Controller
         return $this->taskModel->index();
     }
 
-    public function create($description = null, $file = null, $finishDate = null, $urgently = null, $type = null)
+    public function create()
     {
-        $this->taskModel->create('Іава', '2.jpg', '2020-10-4', true, '');
+        $this->taskModel->create();
         return 'created';
     }
 
-    public function store()
+    public function store($description = null, $file = null, $finishDate = null, $urgently = null, $type = null)
     {
-        return 'store';
+        $this->taskModel->store($description, $file, $finishDate, $urgently, $type);
+        return 'stored';
     }
 
     public function show()

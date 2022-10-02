@@ -8,9 +8,9 @@ interface RestApi
 {
     public function index();
 
-    public function create($description= null, $file= null, $finishDate= null, $urgently= null, $type= null);
+    public function create();
 
-    public function store();
+    public function store($description= null, $file= null, $finishDate= null, $urgently= null, $type= null);
 
     public function show();
 

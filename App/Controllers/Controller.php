@@ -18,7 +18,13 @@ abstract class Controller implements RestApi
         }
         if ($methodType == 'POST' && !is_null($controllerName) && is_null($id) && is_null($action)) {
             $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
-            return (new $class())->store();
+            return (new $class())->store(
+                $queryParams['description'],
+                $queryParams['file'],
+                $queryParams['finishDate'],
+                $queryParams['urgently'],
+                $queryParams['type']
+            );
         }
         if ($methodType == 'GET' && !is_null($controllerName) && !is_null($id) && is_null($action)) {
             $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
@@ -36,6 +42,6 @@ abstract class Controller implements RestApi
             $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
             return (new $class())->destroy();
         }
-        throw new \Exception('Wrong request');
+        //throw new \Exception('Wrong request');
     }
 }

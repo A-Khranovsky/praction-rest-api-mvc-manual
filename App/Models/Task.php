@@ -31,15 +31,29 @@ class Task extends Database implements RestApi
         return $result->fetchAll(Database::FETCH_ASSOC);
     }
 
-    public function create($description = null, $file = null, $finishDate = null, $urgently = null, $type = null)
+    public function create()
     {
-        //$type = 'Робочі';
+        // TODO: Implement store() method.
+    }
+
+    public function store($description = null, $file = null, $finishDate = null, $urgently = null, $type = null)
+    {
         $sql = "select id from types where name=:type";
         $result = $this->pdo->prepare($sql);
         $result->bindParam(':type', $type);
         $result->execute();
         $type_id = $result->fetch(Database::FETCH_ASSOC)['id'];
 
+////        var_dump($description,
+////            $file,
+////            $finishDate,
+////            $urgently,
+////            $type_id);
+//            return [$description,
+//            $file,
+//            $finishDate,
+//            $urgently,
+//            $type_id];
         $sql = "INSERT INTO tasks (description, file, finish_date, urgently, type_id)
                     VALUES (:description, :file, :finishDate, :urgently, :type_id);";
         $result = $this->pdo->prepare($sql);
@@ -49,11 +63,6 @@ class Task extends Database implements RestApi
         $result->bindParam(':urgently', $urgently);
         $result->bindParam(':type_id', $type_id);
         $result->execute();
-    }
-
-    public function store()
-    {
-        // TODO: Implement store() method.
     }
 
     public function show()
