@@ -32,9 +32,9 @@ class TasksController extends Controller
         return 'stored';
     }
 
-    public function show()
+    public function show($id)
     {
-        return 'show';
+        return $this->taskModel->show($id);
     }
 
     public function edit()

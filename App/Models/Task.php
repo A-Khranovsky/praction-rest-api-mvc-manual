@@ -44,16 +44,6 @@ class Task extends Database implements RestApi
         $result->execute();
         $type_id = $result->fetch(Database::FETCH_ASSOC)['id'];
 
-////        var_dump($description,
-////            $file,
-////            $finishDate,
-////            $urgently,
-////            $type_id);
-//            return [$description,
-//            $file,
-//            $finishDate,
-//            $urgently,
-//            $type_id];
         $sql = "INSERT INTO tasks (description, file, finish_date, urgently, type_id)
                     VALUES (:description, :file, :finishDate, :urgently, :type_id);";
         $result = $this->pdo->prepare($sql);
@@ -65,9 +55,13 @@ class Task extends Database implements RestApi
         $result->execute();
     }
 
-    public function show()
+    public function show($id): array
     {
-        // TODO: Implement show() method.
+        $sql = "select * from tasks where id=:id;";
+        $result = $this->pdo->prepare($sql);
+        $result->bindParam(':id', $id);
+        $result->execute();
+        return $result->fetchAll(Database::FETCH_ASSOC);
     }
 
     public function edit()

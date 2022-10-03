@@ -12,7 +12,7 @@ interface RestApi
 
     public function store($description= null, $file= null, $finishDate= null, $urgently= null, $type= null);
 
-    public function show();
+    public function show($id);
 
     public function edit();
 

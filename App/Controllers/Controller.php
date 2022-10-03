@@ -28,7 +28,7 @@ abstract class Controller implements RestApi
         }
         if ($methodType == 'GET' && !is_null($controllerName) && !is_null($id) && is_null($action)) {
             $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
-            return (new $class())->show();
+            return (new $class())->show($id);
         }
         if ($methodType == 'GET' && !is_null($controllerName) && !is_null($id) && $action === 'edit') {
             $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
