@@ -16,7 +16,7 @@ interface RestApi
 
     public function edit();
 
-    public function update();
+    public function update($id, $queryParams);
 
     public function destroy();
 }

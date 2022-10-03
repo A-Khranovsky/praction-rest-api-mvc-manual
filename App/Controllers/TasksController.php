@@ -42,7 +42,7 @@ class TasksController extends Controller
         return 'edit';
     }
 
-    public function update()
+    public function update($id, $queryParams)
     {
         return 'update';
     }

@@ -33,7 +33,7 @@ class Task extends Database implements RestApi
 
     public function create()
     {
-        // TODO: Implement store() method.
+        // TODO: Implement store() method. return the creating form
     }
 
     public function store($description = null, $file = null, $finishDate = null, $urgently = null, $type = null)
@@ -66,12 +66,34 @@ class Task extends Database implements RestApi
 
     public function edit()
     {
-        // TODO: Implement edit() method.
+        // TODO: Implement edit() method. return the editing form
     }
 
-    public function update()
+    public function update($id, $queryParams)
     {
-        // TODO: Implement update() method.
+        exit(var_dump($queryParams));
+        $type_id = null;
+        if (isset($queryParams['type'])) {
+            $sql = "select id from types where name=:type";
+            $result = $this->pdo->prepare($sql);
+            $result->bindParam(':type', $type);
+            $result->execute();
+            $type_id = $result->fetch(Database::FETCH_ASSOC)['id'];
+        }
+
+        $sql = "update tasks set ";
+        foreach ($queryParams as $key => $value) {
+            $sql .= $key . '=' . $value . ' ';
+        }
+        if (!is_null($type_id)) {
+            $sql .= "type_id=" . $type_id . " ";
+        }
+        $sql .= "where id=:id";
+
+        exit($sql);
+        $result = $this->pdo->prepare($sql);
+        $result->bindParam(':id', $id);
+        $result->execute();
     }
 
     public function destroy()
