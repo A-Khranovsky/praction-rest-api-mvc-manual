@@ -71,26 +71,38 @@ class Task extends Database implements RestApi
 
     public function update($id, $queryParams)
     {
-        exit(var_dump($queryParams));
         $type_id = null;
         if (isset($queryParams['type'])) {
             $sql = "select id from types where name=:type";
             $result = $this->pdo->prepare($sql);
-            $result->bindParam(':type', $type);
+            $result->bindParam(':type', $queryParams['type']);
             $result->execute();
             $type_id = $result->fetch(Database::FETCH_ASSOC)['id'];
         }
-
         $sql = "update tasks set ";
         foreach ($queryParams as $key => $value) {
-            $sql .= $key . '=' . $value . ' ';
+            if ($key == 'type') {
+                continue;
+            }
+            if ($value == end($queryParams)) {
+                $sql .= $key . '=\'' . $value . '\'';
+            } else {
+                $sql .= $key . '=\'' . $value . '\', ';
+            }
         }
         if (!is_null($type_id)) {
-            $sql .= "type_id=" . $type_id . " ";
+            if (count($queryParams) == 1) {
+                $sql .= 'type_id=' . $type_id . ' ';
+            } else {
+                if($queryParams['type'] == end($queryParams)) {
+                    $sql .= 'type_id=' . $type_id . ' ';
+                } else {
+                    $sql .= ', type_id=' . $type_id . ' ';
+                }
+            }
         }
-        $sql .= "where id=:id";
+        $sql .= " where id=:id;";
 
-        exit($sql);
         $result = $this->pdo->prepare($sql);
         $result->bindParam(':id', $id);
         $result->execute();

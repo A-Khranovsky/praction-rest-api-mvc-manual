@@ -44,6 +44,7 @@ class TasksController extends Controller
 
     public function update($id, $queryParams)
     {
+        $this->taskModel->update($id, $queryParams);
         return 'update';
     }
 

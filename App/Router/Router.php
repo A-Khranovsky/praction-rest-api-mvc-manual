@@ -41,9 +41,9 @@ class Router
 
     private function __construct($controllerName = null, $id = null, $action = null)
     {
-        switch (true) {
+       switch (true) {
             case !empty($_REQUEST):
-                $this->queryParams = $_REQUEST;
+                $this->queryParams = $_REQUEST; //GET Request
                 break;
             case !empty(file_get_contents("php://input")):
                 $this->queryParams = json_decode(file_get_contents("php://input"), true);
