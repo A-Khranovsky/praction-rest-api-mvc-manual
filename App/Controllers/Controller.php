@@ -18,13 +18,7 @@ abstract class Controller implements RestApi
         }
         if ($methodType == 'POST' && !is_null($controllerName) && is_null($id) && is_null($action)) {
             $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
-            return (new $class())->store(
-                $queryParams['description'],
-                $queryParams['file'],
-                $queryParams['finishDate'],
-                $queryParams['urgently'],
-                $queryParams['type']
-            );
+            return (new $class())->store($queryParams);
         }
         if ($methodType == 'GET' && !is_null($controllerName) && !is_null($id) && is_null($action)) {
             $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);

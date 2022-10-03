@@ -26,9 +26,9 @@ class TasksController extends Controller
         return 'created';
     }
 
-    public function store($description = null, $file = null, $finishDate = null, $urgently = null, $type = null)
+    public function store($queryParams)
     {
-        $this->taskModel->store($description, $file, $finishDate, $urgently, $type);
+        $this->taskModel->store($queryParams);
         return 'stored';
     }
 

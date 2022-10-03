@@ -36,21 +36,21 @@ class Task extends Database implements RestApi
         // TODO: Implement store() method. return the creating form
     }
 
-    public function store($description = null, $file = null, $finishDate = null, $urgently = null, $type = null)
+    public function store($queryParams)
     {
         $sql = "select id from types where name=:type";
         $result = $this->pdo->prepare($sql);
-        $result->bindParam(':type', $type);
+        $result->bindParam(':type', $queryParams['type']);
         $result->execute();
         $type_id = $result->fetch(Database::FETCH_ASSOC)['id'];
 
         $sql = "INSERT INTO tasks (description, file, finish_date, urgently, type_id)
                     VALUES (:description, :file, :finishDate, :urgently, :type_id);";
         $result = $this->pdo->prepare($sql);
-        $result->bindParam(':description', $description);
-        $result->bindParam(':file', $file);
-        $result->bindParam(':finishDate', $finishDate);
-        $result->bindParam(':urgently', $urgently);
+        $result->bindParam(':description', $queryParams['description']);
+        $result->bindParam(':file', $queryParams['file']);
+        $result->bindParam(':finishDate', $queryParams['finishDate']);
+        $result->bindParam(':urgently', $queryParams['urgently']);
         $result->bindParam(':type_id', $type_id);
         $result->execute();
     }
