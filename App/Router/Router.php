@@ -17,6 +17,7 @@ class Router
 
     public static function parse($uri)
     {
+        $id= null; $action = null;
         $uri = array_slice(preg_split("/[\/?]/", $uri), 1);
         foreach (Router::uriTemplate as $key => $item) {
             $uriElements[$key] = current($uri) !== false ? current($uri) : null;
@@ -63,9 +64,9 @@ class Router
                 throw new Exception("Unexpected Header");
             }
         }
+
         $this->id = $id;
         $this->action = $action;
-
         $this->controllerAction = Controller::run($this->queryType, $controllerName, $id, $action, $this->queryParams);
     }
 

@@ -6,18 +6,21 @@ namespace App\Controllers;
 
 use App\Config\Database;
 use App\Models\Task;
+use App\Views\Responser;
 
 class TasksController extends Controller
 {
-    private $taskModel = null;
+    private $taskModel, $responser;
 
     public function __construct()
     {
         $this->taskModel = new Task();
+        $this->responser = new Responser();
     }
     public function index()
     {
-        return $this->taskModel->index();
+        $this->responser->set($this->taskModel->index(), 200);
+        return $this->responser->response();
     }
 
     public function create()
