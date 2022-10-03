@@ -40,7 +40,7 @@ abstract class Controller implements RestApi
         }
         if ($methodType == 'DELETE' && !is_null($controllerName) && !is_null($id) && is_null($action)) {
             $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
-            return (new $class())->destroy();
+            return (new $class())->destroy($id);
         }
         //throw new \Exception('Wrong request');
     }

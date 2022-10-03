@@ -48,8 +48,9 @@ class TasksController extends Controller
         return 'update';
     }
 
-    public function destroy()
+    public function destroy($id)
     {
+        $this->taskModel->destroy($id);
         return 'delete';
     }
 

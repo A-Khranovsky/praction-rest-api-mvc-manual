@@ -108,8 +108,11 @@ class Task extends Database implements RestApi
         $result->execute();
     }
 
-    public function destroy()
+    public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        $sql = "delete from tasks where id=:id;";
+        $result = $this->pdo->prepare($sql);
+        $result->bindParam(':id', $id);
+        $result->execute();
     }
 }
