@@ -4,27 +4,31 @@ namespace App\Views;
 
 class Responser
 {
-    private array $data;
-    private $statuses = [
+    private array|null $data;
+    private array $statuses = [
+        100 => 'Continue',
         200 => 'OK',
+        201 => 'Created',
         404 => 'Not Found',
         405 => 'Method Not Allowed',
         500 => 'Internal Server Error',
     ];
-    private $code;
-    private $message;
+    private string $code;
 
-    public function set(array $data, string $code, string $message = '')
+    public function set(array|null $data, string $code)
     {
         $this->data = $data;
         $this->code = $code;
-        $this->message = $message;
     }
 
     public function response()
     {
-        header("HTTP/1.1 " . $this->code . $this->statuses[$this->code] ?? $this->message);
+        header("HTTP/1.1 " . $this->code . ' ' . $this->statuses[$this->code]);
         header('Content-Type: application/json; charset=utf-8');
-        return json_encode($this->data);
+        if(!is_null($this->data)) {
+            return json_encode($this->data);
+        } else {
+            return null;
+        }
     }
 }

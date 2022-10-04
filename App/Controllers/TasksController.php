@@ -25,14 +25,14 @@ class TasksController extends Controller
 
     public function create()
     {
-        $this->taskModel->create();
-        return 'created';
+        $this->responser->set($this->taskModel->create(), 100);
+        return $this->responser->response();
     }
 
     public function store($queryParams)
     {
-        $this->taskModel->store($queryParams);
-        return 'stored';
+        $this->responser->set($this->taskModel->store($queryParams), 201);
+        return $this->responser->response();
     }
 
     public function show($id)

@@ -9,11 +9,13 @@ use App\Interfaces\RestApi;
 
 class Task extends Database implements RestApi
 {
-    private int $id;
-    private string $description;
-    private string $file;
-    private string $finish_date;
-    private bool $urgently;
+    private array $fields = [
+        'id' => 'integer',
+        'description' => 'text',
+        'file' => 'string',
+        'finish_date' => 'string Y-m-d',
+        'urgently' => 'boolean'
+    ];
     private Type $type;
 
 
@@ -33,7 +35,7 @@ class Task extends Database implements RestApi
 
     public function create()
     {
-        // TODO: Implement store() method. return the creating form
+        return $this->fields;
     }
 
     public function store($queryParams)
@@ -53,6 +55,7 @@ class Task extends Database implements RestApi
         $result->bindParam(':urgently', $queryParams['urgently']);
         $result->bindParam(':type_id', $type_id);
         $result->execute();
+        return null;
     }
 
     public function show($id): array
@@ -94,7 +97,7 @@ class Task extends Database implements RestApi
             if (count($queryParams) == 1) {
                 $sql .= 'type_id=' . $type_id . ' ';
             } else {
-                if($queryParams['type'] == end($queryParams)) {
+                if ($queryParams['type'] == end($queryParams)) {
                     $sql .= 'type_id=' . $type_id . ' ';
                 } else {
                     $sql .= ', type_id=' . $type_id . ' ';
