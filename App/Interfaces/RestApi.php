@@ -12,8 +12,6 @@ interface RestApi
 
     public function store($queryParams);
 
-    public function show($id);
-
     public function edit();
 
     public function update($id, $queryParams);
