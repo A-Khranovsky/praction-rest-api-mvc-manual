@@ -1,0 +1,46 @@
+<h3 id="w-b-rest-api-">Wеb-додаток реалізуючий REST API.</h3>
+<p>Формат данних, очікуваних сервером та відправляємих клієнту, є JSON.</p>
+<h4 id="-get-">Для перегляду всіх завданнь відправте запит GET до:</h4>
+<pre><code class="lang-angular2html">http:<span class="hljs-regexp">//</span>khranovskiy.softwars.com.ua<span class="hljs-regexp">/api/</span>tasks
+</code></pre>
+<h4 id="-get-">Для перегляду переметрів з яких скаладється завдання для його подальшого створення (в іншому запиті) відправте GET до:</h4>
+<pre><code class="lang-angular2html">http:<span class="hljs-regexp">//</span>khranovskiy.softwars.com.ua<span class="hljs-regexp">/api/</span>tasks<span class="hljs-regexp">/create</span>
+</code></pre>
+<h4 id="-">Для Створення нового завдання відправте</h4>
+<pre><code class="lang-angular2html">POST <span class="hljs-string">http:</span><span class="hljs-comment">//khranovskiy.softwars.com.ua/api/tasks</span>
+Content-<span class="hljs-string">Type:</span> application/json
+<span class="hljs-string">Accept:</span> application/json
+
+{
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"Опис завдання"</span>,
+    <span class="hljs-string">"file"</span>: <span class="hljs-string">"Ім'я файлу"</span>,
+    <span class="hljs-string">"finishDate"</span>: <span class="hljs-string">"2022-10-04"</span>,
+    <span class="hljs-string">"urgently"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"Особисті"</span>
+}
+</code></pre>
+<ul>
+    <li>Ім&#39;я файлу назва файла з його розширенням. (Відправка файла не реалізовано)</li>
+    <li>Urgently показник терміновості, якщо true, то терміново, якщо false то не терміново.</li>
+    <li>Type приймає чи строку &quot;Особості&quot; чи строку &quot;Робочі&quot;</li>
+</ul>
+<h4 id="-id-id-get-">Для перегляду данних завдання по його id для подальшому їх редагуванні (в іншому запиті),(тут заменіть слов id на номер) відправте GET на</h4>
+<pre><code class="lang-angular2html">http:<span class="hljs-regexp">//</span>khranovskiy.softwars.com<span class="hljs-regexp">/api/</span>tasks<span class="hljs-regexp">/id/</span>edit
+</code></pre>
+<h4 id="-id-">Для редагування запит може бути таким (заменіть слов id на номер):</h4>
+<pre><code class="lang-angular2html">PATCH <span class="hljs-string">http:</span><span class="hljs-comment">//khranovskiy.softwars.com/api/tasks/id</span>
+Content-<span class="hljs-string">Type:</span> application/json
+<span class="hljs-string">Accept:</span> application/json
+
+{
+    <span class="hljs-string">"file"</span>: <span class="hljs-string">"40.png"</span>,
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"Намалювати інтерфейс цієї програми"</span>,
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"Робочі"</span>,
+    <span class="hljs-string">"urgently"</span>: <span class="hljs-literal">false</span>
+}
+</code></pre>
+<h4 id="-id-">Для видалення завдання, запит має будти таким (заменіть слов id на номер)</h4>
+<pre><code class="lang-angular2html"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">http</span>://khranovskiy.softwars.com/api/tasks/<span class="hljs-keyword">id</span>
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>: application/<span class="hljs-keyword">json</span>
+<span class="hljs-keyword">Accept</span>: application/<span class="hljs-keyword">json</span>
+</code></pre>
