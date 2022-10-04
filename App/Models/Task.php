@@ -100,10 +100,10 @@ class Task extends Database implements RestApi
             }
         }
         $sql .= " where id=:id;";
-
         $result = $this->pdo->prepare($sql);
         $result->bindParam(':id', $id);
         $result->execute();
+        return null;
     }
 
     public function destroy($id)
