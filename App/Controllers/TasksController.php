@@ -43,8 +43,8 @@ class TasksController extends Controller
 
     public function update($id, $queryParams)
     {
-        $this->taskModel->update($id, $queryParams);
-        return 'update';
+        $this->responser->set($this->taskModel->update($id, $queryParams), 201);
+        return $this->responser->response();
     }
 
     public function destroy($id)
