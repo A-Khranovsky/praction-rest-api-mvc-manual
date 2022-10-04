@@ -24,6 +24,6 @@ class Type extends Database
         $result = $this->pdo->prepare($sql);
         $result->bindParam(':name', $name);
         $result->execute();
-        return $result->fetch(Database::FETCH_ASSOC)['id']|null;
+        return $result->fetch(Database::FETCH_ASSOC)['id'];
     }
 }
