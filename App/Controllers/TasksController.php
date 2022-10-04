@@ -1,10 +1,7 @@
 <?php
 
-
 namespace App\Controllers;
 
-
-use App\Config\Database;
 use App\Models\Task;
 use App\Views\Responser;
 

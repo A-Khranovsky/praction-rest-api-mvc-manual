@@ -4,7 +4,26 @@
 namespace App\Models;
 
 
-class Type
-{
+use App\Config\Database;
 
+class Type extends Database
+{
+    private array $fields = [
+        'id' => 'integer',
+        'name' => 'string'
+    ];
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function getIdByName(string $name)
+    {
+        $sql = "select id from types where name=:name";
+        $result = $this->pdo->prepare($sql);
+        $result->bindParam(':name', $name);
+        $result->execute();
+        return $result->fetch(Database::FETCH_ASSOC)['id']|null;
+    }
 }

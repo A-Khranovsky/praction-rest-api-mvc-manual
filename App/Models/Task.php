@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Models;
 
 
@@ -40,11 +39,10 @@ class Task extends Database implements RestApi
 
     public function store($queryParams)
     {
-        $sql = "select id from types where name=:type";
-        $result = $this->pdo->prepare($sql);
-        $result->bindParam(':type', $queryParams['type']);
-        $result->execute();
-        $type_id = $result->fetch(Database::FETCH_ASSOC)['id'];
+        $type_id = null;
+        if (isset($queryParams['type'])) {
+            $type_id = $this->type->getIdByName($queryParams['type']);
+        }
 
         $sql = "INSERT INTO tasks (description, file, finish_date, urgently, type_id)
                     VALUES (:description, :file, :finishDate, :urgently, :type_id);";
@@ -71,11 +69,7 @@ class Task extends Database implements RestApi
     {
         $type_id = null;
         if (isset($queryParams['type'])) {
-            $sql = "select id from types where name=:type";
-            $result = $this->pdo->prepare($sql);
-            $result->bindParam(':type', $queryParams['type']);
-            $result->execute();
-            $type_id = $result->fetch(Database::FETCH_ASSOC)['id'];
+            $type_id = $this->type->getIdByName($queryParams['type']);
         }
         $sql = "update tasks set ";
         foreach ($queryParams as $key => $value) {
