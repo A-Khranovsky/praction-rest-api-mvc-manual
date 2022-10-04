@@ -12,7 +12,7 @@ interface RestApi
 
     public function store($queryParams);
 
-    public function edit();
+    public function edit($id);
 
     public function update($id, $queryParams);
 

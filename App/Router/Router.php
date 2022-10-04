@@ -11,27 +11,32 @@ class Router
     private const uriTemplate = [
         'api' => null,
         'controller' => null,
-        'etc' => null,
+        'idOrAction' => null,
+        'action' => null,
         'queryParams' => null
     ];
 
     public static function parse($uri)
     {
-        $id= null; $action = null;
+        $id = null;
+        $action = null;
         $uri = array_slice(preg_split("/[\/?]/", $uri), 1);
         foreach (Router::uriTemplate as $key => $item) {
             $uriElements[$key] = current($uri) !== false ? current($uri) : null;
             next($uri);
         }
         switch (true) {
-            case (int)$uriElements['etc'] :
-                $id = (int)$uriElements['etc'];
+            case (int)$uriElements['idOrAction'] :
+                $id = (int)$uriElements['idOrAction'];
                 break;
-            case (string)$uriElements['etc']:
-                $action = (string)$uriElements['etc'];
+            case (string)$uriElements['idOrAction']:
+                $action = (string)$uriElements['idOrAction'];
                 break;
             default:
                 break;
+        }
+        if (is_null($action)) {
+            $action = $uriElements['action'];
         }
         return new self(
             $uriElements['controller'] . 'Controller',
@@ -42,7 +47,7 @@ class Router
 
     private function __construct($controllerName = null, $id = null, $action = null)
     {
-       switch (true) {
+        switch (true) {
             case !empty($_REQUEST):
                 $this->queryParams = $_REQUEST; //GET Request
                 break;
