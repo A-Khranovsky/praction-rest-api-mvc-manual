@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Config;
-
 
 use PDO;
 use PDOException;
@@ -23,8 +21,8 @@ class Database
     public function __construct()
     {
         try {
-            $this->pdo = new PDO
-                ( self::driver. ':' .
+            $this->pdo = new PDO(
+                self::driver . ':' .
                     'host=' . self::host . ';' .
                     'port=' . self::port . ';' .
                     'dbname=' . self::database . ';' .
@@ -34,7 +32,7 @@ class Database
             );
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            exit('Unable connect to the DB '. $e->getMessage());
+            exit('Unable connect to the DB ' . $e->getMessage());
         }
     }
 }

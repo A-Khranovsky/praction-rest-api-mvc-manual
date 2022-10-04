@@ -25,7 +25,7 @@ class Responser
     {
         header("HTTP/1.1 " . $this->code . ' ' . $this->statuses[$this->code]);
         header('Content-Type: application/json; charset=utf-8');
-        if(!is_null($this->data)) {
+        if (!is_null($this->data)) {
             return json_encode($this->data);
         } else {
             return null;

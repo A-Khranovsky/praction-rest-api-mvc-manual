@@ -6,7 +6,7 @@ use App\Interfaces\RestApi;
 
 abstract class Controller implements RestApi
 {
-    static public function run($methodType, $controllerName, $id, $action, $queryParams)
+    public static function run($methodType, $controllerName, $id, $action, $queryParams)
     {
         if ($methodType == 'GET' && !is_null($controllerName) && is_null($id) && is_null($action)) {
             $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
@@ -32,6 +32,5 @@ abstract class Controller implements RestApi
             $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
             return (new $class())->destroy($id);
         }
-        //throw new \Exception('Wrong request');
     }
 }

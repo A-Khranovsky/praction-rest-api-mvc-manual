@@ -49,5 +49,4 @@ class TasksController extends Controller
         $this->responser->set($this->taskModel->destroy($id), 201);
         return $this->responser->response();
     }
-
 }
