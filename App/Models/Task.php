@@ -66,6 +66,7 @@ class Task extends Database implements RestApi
 
     public function update($id, $queryParams)
     {
+
         $type_id = null;
         if (isset($queryParams['type'])) {
             $type_id = $this->type->getIdByName($queryParams['type']);
@@ -75,17 +76,17 @@ class Task extends Database implements RestApi
             if ($key == 'type') {
                 continue;
             }
-            if ($value == end($queryParams)) {
+            if ($value === end($queryParams)) {
                 $sql .= $key . '=\'' . $value . '\'';
             } else {
                 $sql .= $key . '=\'' . $value . '\', ';
             }
         }
         if (!is_null($type_id)) {
-            if (count($queryParams) == 1) {
+            if (count($queryParams) === 1) {
                 $sql .= 'type_id=' . $type_id . ' ';
             } else {
-                if ($queryParams['type'] == end($queryParams)) {
+                if ($queryParams['type'] === end($queryParams)) {
                     $sql .= 'type_id=' . $type_id . ' ';
                 } else {
                     $sql .= ', type_id=' . $type_id . ' ';
