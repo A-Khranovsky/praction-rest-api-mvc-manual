@@ -112,5 +112,6 @@ class Task extends Database implements RestApi
         $result = $this->pdo->prepare($sql);
         $result->bindParam(':id', $id);
         $result->execute();
+        return null;
     }
 }

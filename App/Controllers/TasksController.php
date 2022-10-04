@@ -49,8 +49,8 @@ class TasksController extends Controller
 
     public function destroy($id)
     {
-        $this->taskModel->destroy($id);
-        return 'delete';
+        $this->responser->set($this->taskModel->destroy($id), 201);
+        return $this->responser->response();
     }
 
 }
