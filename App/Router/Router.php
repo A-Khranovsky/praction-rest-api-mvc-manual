@@ -7,7 +7,7 @@ use Exception;
 
 class Router
 {
-    public $queryType, $controllerName, $id, $queryParams, $action, $controllerAction;
+    public $queryType, $id, $queryParams, $action, $controllerAction;
     private const uriTemplate = [
         'api' => null,
         'controller' => null,
@@ -26,7 +26,7 @@ class Router
             next($uri);
         }
         switch (true) {
-            case (int)$uriElements['idOrAction'] :
+            case (int)$uriElements['idOrAction']:
                 $id = (int)$uriElements['idOrAction'];
                 break;
             case (string)$uriElements['idOrAction']:
@@ -63,7 +63,7 @@ class Router
         if ($this->queryType == 'POST' && array_key_exists('HTTP_X_HTTP_METHOD', $_SERVER)) {
             if ($_SERVER['HTTP_X_HTTP_METHOD'] == 'DELETE') {
                 $this->queryType = 'DELETE';
-            } else if ($_SERVER['HTTP_X_HTTP_METHOD'] == 'PUT') {
+            } elseif ($_SERVER['HTTP_X_HTTP_METHOD'] == 'PUT') {
                 $this->queryType = 'PUT';
             } else {
                 throw new Exception("Unexpected Header");

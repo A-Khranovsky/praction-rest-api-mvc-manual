@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 use App\Config\Database;
 use App\Interfaces\RestApi;
 
@@ -21,7 +20,7 @@ class Task extends Database implements RestApi
     public function __construct()
     {
         parent::__construct();
-        $this->type = new Type; // has many types
+        $this->type = new Type(); // has many types
     }
 
     public function index()
