@@ -58,15 +58,6 @@ class Task extends Database implements RestApi
         return null;
     }
 
-    public function show($id): array
-    {
-        $sql = "select * from tasks where id=:id;";
-        $result = $this->pdo->prepare($sql);
-        $result->bindParam(':id', $id);
-        $result->execute();
-        return $result->fetchAll(Database::FETCH_ASSOC);
-    }
-
     public function edit()
     {
         // TODO: Implement edit() method. return the editing form

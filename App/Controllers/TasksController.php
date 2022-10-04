@@ -35,11 +35,6 @@ class TasksController extends Controller
         return $this->responser->response();
     }
 
-    public function show($id)
-    {
-        return $this->taskModel->show($id);
-    }
-
     public function edit()
     {
         return 'edit';
