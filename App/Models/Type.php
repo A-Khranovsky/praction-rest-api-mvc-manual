@@ -24,4 +24,12 @@ class Type extends Database
         $result->execute();
         return $result->fetch(Database::FETCH_ASSOC)['id'];
     }
+
+    public function all()
+    {
+        $sql = "select * from types";
+        $result = $this->pdo->prepare($sql);
+        $result->execute();
+        return $result->fetchAll(Database::FETCH_ASSOC);
+    }
 }
