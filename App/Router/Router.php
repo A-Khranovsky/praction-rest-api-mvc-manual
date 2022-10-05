@@ -33,7 +33,7 @@ class Router
                 $action = (string)$uriElements['idOrAction'];
                 break;
             default:
-                break;
+                throw new Exception('Not found', 404);
         }
         if (is_null($action)) {
             $action = $uriElements['action'];
@@ -45,7 +45,7 @@ class Router
         );
     }
 
-    private function __construct($controllerName = null, $id = null, $action = null)
+    public function __construct($controllerName = null, $id = null, $action = null)
     {
         switch (true) {
             case !empty($_REQUEST):
@@ -66,7 +66,7 @@ class Router
             } elseif ($_SERVER['HTTP_X_HTTP_METHOD'] == 'PUT') {
                 $this->queryType = 'PUT';
             } else {
-                throw new Exception("Unexpected Header");
+                throw new Exception("Unexpected Header", 500);
             }
         }
 
