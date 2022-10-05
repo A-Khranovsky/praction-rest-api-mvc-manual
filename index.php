@@ -4,11 +4,9 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 spl_autoload_register();
 
-use App\Router\Router;
+use App\Application;
 
-$obj = Router::parse($_SERVER['REQUEST_URI']);
-//echo '<pre>';
-//var_dump($obj);
-//echo '</pre>';
-echo $obj->result();
+$obj = Application::run($_SERVER['REQUEST_URI']);
+
+echo $obj->response();
 
