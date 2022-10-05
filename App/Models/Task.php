@@ -25,10 +25,25 @@ class Task extends Database implements RestApi
 
     public function index()
     {
+        $idAndNames = [];
+        $types = $this->type->all();
+        foreach ($types as $item){
+            $idAndNames[$item['id']] = $item['name'];
+        }
+
         $sql = "select * from tasks;";
         $result = $this->pdo->prepare($sql);
         $result->execute();
-        return $result->fetchAll(Database::FETCH_ASSOC);
+        $tasks = $result->fetchAll(Database::FETCH_ASSOC);
+        foreach ($tasks as &$item){
+            foreach ($item as $key => $value){
+                if($key === 'type_id'){
+                    unset($item[$key]);
+                    $item['type'] = $idAndNames[$value];
+                }
+            }
+        }
+        return $tasks;
     }
 
     public function create()
