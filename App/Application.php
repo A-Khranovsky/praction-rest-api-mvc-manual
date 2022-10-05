@@ -9,31 +9,35 @@ use App\Views\Responser;
 
 class Application
 {
-    private $app, $result;
+    private $app;
+    private $result;
 
-    public static function run(string $uri)
+    public static function run($uri)
     {
-        try{
+        try {
             $app = Router::parse($uri);
             return new self($app);
-        } catch(\Exception $exception){
+        } catch (\Exception $exception) {
             $responser = new Responser();
             $responser->set([
                 'error' => $exception->getMessage()
             ], $exception->getCode());
-            $app = new Router;
-            $app->controllerAction = $responser->response();
-            return new self($app);
+            $app = new self();
+            $app->result = $responser->response();
+            return $app;
         }
     }
 
-    private function __construct($app)
+    private function __construct($app = null)
     {
-       $this->app = $app;
+        if(!is_null($app)) {
+           $this->app = $app;
+           $this->result = $app->result();
+        }
     }
 
     public function response()
     {
-        return $this->app->result();
+        return $this->result;
     }
 }

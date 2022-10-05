@@ -25,6 +25,9 @@ class Router
             $uriElements[$key] = current($uri) !== false ? current($uri) : null;
             next($uri);
         }
+        if(is_null($uriElements['controller'])){
+            throw new Exception('Not found', 404);
+        }
         switch (true) {
             case (int)$uriElements['idOrAction']:
                 $id = (int)$uriElements['idOrAction'];
@@ -33,7 +36,7 @@ class Router
                 $action = (string)$uriElements['idOrAction'];
                 break;
             default:
-                throw new Exception('Not found', 404);
+                break;
         }
         if (is_null($action)) {
             $action = $uriElements['action'];
@@ -69,7 +72,6 @@ class Router
                 throw new Exception("Unexpected Header", 500);
             }
         }
-
         $this->controllerAction = Controller::run($this->queryType, $controllerName, $id, $action, $this->queryParams);
     }
 
