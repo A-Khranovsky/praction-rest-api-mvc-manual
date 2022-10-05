@@ -7,7 +7,7 @@ use Exception;
 
 class Router
 {
-    public $queryType, $id, $queryParams, $action, $controllerAction;
+    public $queryType, $queryParams, $controllerAction;
     private const uriTemplate = [
         'api' => null,
         'controller' => null,
@@ -70,8 +70,6 @@ class Router
             }
         }
 
-        $this->id = $id;
-        $this->action = $action;
         $this->controllerAction = Controller::run($this->queryType, $controllerName, $id, $action, $this->queryParams);
     }
 
