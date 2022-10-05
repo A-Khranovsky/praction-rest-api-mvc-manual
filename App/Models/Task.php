@@ -23,27 +23,36 @@ class Task extends Database implements RestApi
         $this->type = new Type(); // has many types
     }
 
-    public function index()
+    public function all()
     {
-        $idAndNames = [];
-        $types = $this->type->all();
-        foreach ($types as $item){
-            $idAndNames[$item['id']] = $item['name'];
-        }
-
         $sql = "select * from tasks;";
         $result = $this->pdo->prepare($sql);
         $result->execute();
-        $tasks = $result->fetchAll(Database::FETCH_ASSOC);
-        foreach ($tasks as &$item){
-            foreach ($item as $key => $value){
-                if($key === 'type_id'){
+        return $result->fetchAll(Database::FETCH_ASSOC);
+    }
+
+    private function joinAndPaste(Type $type, string $foriegnKeyOfCurrentTb, string $pastedName)
+    {
+        $idAndNames = [];
+        $types = $type->all();
+        foreach ($types as $item) {
+            $idAndNames[$item['id']] = $item['name'];
+        }
+        $tasks = $this->all();
+        foreach ($tasks as &$item) {
+            foreach ($item as $key => $value) {
+                if ($key === $foriegnKeyOfCurrentTb) {
                     unset($item[$key]);
-                    $item['type'] = $idAndNames[$value];
+                    $item[$pastedName] = $idAndNames[$value];
                 }
             }
         }
         return $tasks;
+    }
+
+    public function index()
+    {
+        return $this->joinAndPaste($this->type, 'type_id', 'type');
     }
 
     public function create()
