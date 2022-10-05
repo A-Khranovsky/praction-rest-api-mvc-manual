@@ -32,7 +32,7 @@ class Database
             );
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            exit('Unable connect to the DB ' . $e->getMessage());
+           throw new \Exception('Unable connect to the DB ' . $e->getMessage(), 500);
         }
     }
 }
