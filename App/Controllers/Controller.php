@@ -11,7 +11,7 @@ abstract class Controller implements RestApi
 
         $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
 
-        if(class_exists($class)){
+        if (class_exists($class)) {
             $controller = new $class($responser);
         } else {
             throw new \Exception('Not found', 404);

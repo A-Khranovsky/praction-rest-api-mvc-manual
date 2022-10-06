@@ -26,7 +26,7 @@ class Router
             $uriElements[$key] = current($uri) !== false ? current($uri) : null;
             next($uri);
         }
-        if(is_null($uriElements['controller'])){
+        if (is_null($uriElements['controller'])) {
             throw new Exception('Not found', 404);
         }
         switch (true) {
