@@ -8,29 +8,30 @@ abstract class Controller implements RestApi
 {
     public static function run($methodType, $controllerName, $id, $action, $queryParams)
     {
+        $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
+        if(class_exists($class)){
+            $controller = new $class();
+        } else {
+            throw new \Exception('Not found', 404);
+        }
+
         if ($methodType == 'GET' && !is_null($controllerName) && is_null($id) && is_null($action)) {
-            $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
-            return (new $class())->index();
+            return $controller->index();
         }
         if ($methodType == 'GET' && !is_null($controllerName) && is_null($id) && $action === 'create') {
-            $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
-            return (new $class())->create();
+            return $controller->create();
         }
         if ($methodType == 'POST' && !is_null($controllerName) && is_null($id) && is_null($action)) {
-            $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
-            return (new $class())->store($queryParams);
+            return $controller->store($queryParams);
         }
         if ($methodType == 'GET' && !is_null($controllerName) && !is_null($id) && $action === 'edit') {
-            $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
-            return (new $class())->edit($id);
+            return $controller->edit($id);
         }
         if ($methodType == 'PATCH' && !is_null($controllerName) && !is_null($id) && is_null($action)) {
-            $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
-            return (new $class())->update($id, $queryParams);
+            return $controller->update($id, $queryParams);
         }
         if ($methodType == 'DELETE' && !is_null($controllerName) && !is_null($id) && is_null($action)) {
-            $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
-            return (new $class())->destroy($id);
+            return $controller->destroy($id);
         }
     }
 }
