@@ -10,7 +10,7 @@ class Router
     public $queryType, $queryParams, $controllerAction;
     private const uriTemplate = [
         'api' => null,
-        'controller' => null,
+        'resource' => null,
         'idOrAction' => null,
         'action' => null,
         'queryParams' => null
@@ -26,7 +26,7 @@ class Router
             $uriElements[$key] = current($uri) !== false ? current($uri) : null;
             next($uri);
         }
-        if (is_null($uriElements['controller'])) {
+        if (is_null($uriElements['resource'])) {
             throw new Exception('Not found', 404);
         }
         switch (true) {
@@ -44,13 +44,13 @@ class Router
         }
         return new self(
             $responser,
-            $uriElements['controller'] . 'Controller',
+            $uriElements['resource'],
             $id,
             $action
         );
     }
 
-    public function __construct($responser, $controllerName, $id = null, $action = null)
+    public function __construct($responser, $resource, $id = null, $action = null)
     {
         switch (true) {
             case !empty($_REQUEST):
@@ -77,7 +77,7 @@ class Router
         $this->controllerAction = Controller::run(
             $responser,
             $this->queryType,
-            $controllerName,
+            $resource,
             $id,
             $action,
             $this->queryParams

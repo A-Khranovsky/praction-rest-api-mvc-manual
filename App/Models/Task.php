@@ -5,8 +5,9 @@ namespace App\Models;
 use App\Config\Database;
 use App\Interfaces\RestApi;
 
-class Task extends Database implements RestApi
+class Task extends Model implements RestApi
 {
+    private $pdo;
     private array $fields = [
         'id' => 'integer',
         'description' => 'text',
@@ -14,13 +15,13 @@ class Task extends Database implements RestApi
         'finish_date' => 'string Y-m-d',
         'urgently' => 'boolean'
     ];
-    private Type $type;
+    private $type;
 
 
-    public function __construct()
+    public function __construct($db)
     {
-        parent::__construct();
-        $this->type = new Type(); // has many types
+        $this->type = new Type($db); // has many types
+        $this->pdo = $db->pdo;
     }
 
     public function all()

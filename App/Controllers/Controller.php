@@ -3,16 +3,18 @@
 namespace App\Controllers;
 
 use App\Interfaces\RestApi;
+use App\Models\Model;
 
 abstract class Controller implements RestApi
 {
-    public static function run($responser, $methodType, $controllerName, $id, $action, $queryParams)
+    public static function run($responser, $methodType, $resource, $id, $action, $queryParams)
     {
+        $controllerName = $resource . 'Controller';
+        $controllerClass = __NAMESPACE__ . '\\' . ucfirst($controllerName);
+        $model = Model::run($resource);
 
-        $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
-
-        if (class_exists($class)) {
-            $controller = new $class($responser);
+        if (class_exists($controllerClass)) {
+            $controller = new $controllerClass($model, $responser);
         } else {
             throw new \Exception('Not found', 404);
         }
