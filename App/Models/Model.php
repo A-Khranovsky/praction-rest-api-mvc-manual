@@ -12,6 +12,11 @@ abstract class Model
     {
         $modelName = substr_replace($resource, '', -1);
         $modelClass = __NAMESPACE__ . '\\' . ucfirst($modelName);
-        return new $modelClass(new Database());
+        if (class_exists($modelClass)) {
+            $model = new $modelClass(new Database());
+        } else {
+            throw new \Exception('Not found', 404);
+        }
+        return $model;
     }
 }
