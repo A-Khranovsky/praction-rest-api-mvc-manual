@@ -20,7 +20,7 @@ class Router
     {
         $id = null;
         $action = null;
-        //$uriElements = [];
+        $uriElements = [];
         $uri = array_slice(preg_split("/[\/?]/", $uri), 1);
         foreach (Router::uriTemplate as $key => $item) {
             $uriElements[$key] = current($uri) !== false ? current($uri) : null;
