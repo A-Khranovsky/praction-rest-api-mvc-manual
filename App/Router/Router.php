@@ -16,7 +16,7 @@ class Router
         'queryParams' => null
     ];
 
-    public static function parse($uri)
+    public static function run($uri)
     {
         $id = null;
         $action = null;

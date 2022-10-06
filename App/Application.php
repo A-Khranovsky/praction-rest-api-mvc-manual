@@ -15,7 +15,7 @@ class Application
     public static function run($uri)
     {
         try {
-            $app = Router::parse($uri);
+            $app = Router::run($uri);
             return new self($app);
         } catch (\Exception $exception) {
             $responser = new Responser();
