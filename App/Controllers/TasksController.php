@@ -9,10 +9,10 @@ class TasksController extends Controller
 {
     private $taskModel, $responser;
 
-    public function __construct()
+    public function __construct($responser)
     {
         $this->taskModel = new Task();
-        $this->responser = new Responser();
+        $this->responser = $responser;
     }
     public function index()
     {

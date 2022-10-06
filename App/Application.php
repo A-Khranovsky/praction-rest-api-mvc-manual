@@ -14,11 +14,11 @@ class Application
 
     public static function run($uri)
     {
+        $responser = new Responser();
         try {
-            $app = Router::run($uri);
+            $app = Router::run($uri, $responser);
             return new self($app);
         } catch (\Exception $exception) {
-            $responser = new Responser();
             $responser->set([
                 'error' => $exception->getMessage()
             ], $exception->getCode());
