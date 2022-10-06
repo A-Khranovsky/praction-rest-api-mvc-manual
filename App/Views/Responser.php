@@ -17,16 +17,17 @@ class Responser
 
     public function set(array|null $data, string $code)
     {
-        if(is_null($data)){
-            $this->data = [];
-            $this->code = 204;
-        }
-        if(sizeof($data) === 0) {
+        if (is_null($data)) {
             $this->data = [];
             $this->code = 204;
         } else {
-            $this->data = $data;
-            $this->code = $code;
+            if (count($data) > 0) {
+                $this->data = $data;
+                $this->code = $code;
+            } else {
+                $this->data = [];
+                $this->code = 204;
+            }
         }
     }
 

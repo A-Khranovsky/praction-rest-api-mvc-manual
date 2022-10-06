@@ -16,7 +16,7 @@ class TasksController extends Controller
     }
     public function index()
     {
-        $this->responser->set($this->taskModel->index(), 200);
+        $this->responser->set([$this->taskModel->index()], 200);
         return $this->responser->response();
     }
 
