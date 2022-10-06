@@ -15,22 +15,22 @@ abstract class Controller implements RestApi
             throw new \Exception('Not found', 404);
         }
 
-        if ($methodType == 'GET' && !is_null($controllerName) && is_null($id) && is_null($action)) {
+        if ($methodType == 'GET' && is_null($id) && is_null($action)) {
             return $controller->index();
         }
-        if ($methodType == 'GET' && !is_null($controllerName) && is_null($id) && $action === 'create') {
+        if ($methodType == 'GET' && is_null($id) && $action === 'create') {
             return $controller->create();
         }
-        if ($methodType == 'POST' && !is_null($controllerName) && is_null($id) && is_null($action)) {
+        if ($methodType == 'POST' && is_null($id) && is_null($action)) {
             return $controller->store($queryParams);
         }
-        if ($methodType == 'GET' && !is_null($controllerName) && !is_null($id) && $action === 'edit') {
+        if ($methodType == 'GET' && !is_null($id) && $action === 'edit') {
             return $controller->edit($id);
         }
-        if ($methodType == 'PATCH' && !is_null($controllerName) && !is_null($id) && is_null($action)) {
+        if ($methodType == 'PATCH' && !is_null($id) && is_null($action)) {
             return $controller->update($id, $queryParams);
         }
-        if ($methodType == 'DELETE' && !is_null($controllerName) && !is_null($id) && is_null($action)) {
+        if ($methodType == 'DELETE' && !is_null($id) && is_null($action)) {
             return $controller->destroy($id);
         }
     }
