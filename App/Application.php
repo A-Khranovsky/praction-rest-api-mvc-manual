@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App;
-
 
 use App\Router\Router;
 use App\Views\Responser;
@@ -30,9 +28,9 @@ class Application
 
     private function __construct($app = null)
     {
-        if(!is_null($app)) {
-           $this->app = $app;
-           $this->result = $app->result();
+        if (!is_null($app)) {
+            $this->app = $app;
+            $this->result = $app->result();
         }
     }
 
