@@ -7,8 +7,8 @@ use PDOException;
 
 class Database
 {
-    protected $pdo = null;
-    protected const FETCH_ASSOC = PDO::FETCH_ASSOC;
+    public $pdo = null;
+    public const FETCH_ASSOC = PDO::FETCH_ASSOC;
     private const driver = 'mysql';
     private const host = 'coffee20.mysql.tools';
     private const userName = 'coffee20_khranovskiy';

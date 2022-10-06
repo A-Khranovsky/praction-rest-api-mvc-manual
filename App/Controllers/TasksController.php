@@ -7,46 +7,46 @@ use App\Views\Responser;
 
 class TasksController extends Controller
 {
-    private $taskModel, $responser;
+    private $model, $responser;
 
-    public function __construct($responser)
+    public function __construct($model, $responser)
     {
-        $this->taskModel = new Task();
+        $this->model = $model;
         $this->responser = $responser;
     }
     public function index()
     {
-        $this->responser->set([$this->taskModel->index()], 200);
+        $this->responser->set([$this->model->index()], 200);
         return $this->responser->response();
     }
 
     public function create()
     {
-        $this->responser->set($this->taskModel->create(), 200);
+        $this->responser->set($this->model->create(), 200);
         return $this->responser->response();
     }
 
     public function store($queryParams)
     {
-        $this->responser->set($this->taskModel->store($queryParams), 201);
+        $this->responser->set($this->model->store($queryParams), 201);
         return $this->responser->response();
     }
 
     public function edit($id)
     {
-        $this->responser->set($this->taskModel->edit($id), 200);
+        $this->responser->set($this->model->edit($id), 200);
         return $this->responser->response();
     }
 
     public function update($id, $queryParams)
     {
-        $this->responser->set($this->taskModel->update($id, $queryParams), 201);
+        $this->responser->set($this->model->update($id, $queryParams), 201);
         return $this->responser->response();
     }
 
     public function destroy($id)
     {
-        $this->responser->set($this->taskModel->destroy($id), 201);
+        $this->responser->set($this->model->destroy($id), 201);
         return $this->responser->response();
     }
 }

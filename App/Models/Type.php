@@ -4,16 +4,17 @@ namespace App\Models;
 
 use App\Config\Database;
 
-class Type extends Database
+class Type extends Model
 {
+    private $pdo;
     private array $fields = [
         'id' => 'integer',
         'name' => 'string'
     ];
 
-    public function __construct()
+    public function __construct($db)
     {
-        parent::__construct();
+        $this->pdo = $db->pdo;
     }
 
     public function getIdByName(string $name)
