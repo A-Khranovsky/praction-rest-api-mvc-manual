@@ -6,11 +6,11 @@ use App\Interfaces\RestApi;
 
 abstract class Controller implements RestApi
 {
-    public static function run($methodType, $controllerName, $id, $action, $queryParams)
+    public static function run($responser, $methodType, $controllerName, $id, $action, $queryParams)
     {
         $class = __NAMESPACE__ . '\\' . ucfirst($controllerName);
         if(class_exists($class)){
-            $controller = new $class();
+            $controller = new $class($responser);
         } else {
             throw new \Exception('Not found', 404);
         }

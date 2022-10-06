@@ -3,6 +3,7 @@
 namespace App\Router;
 
 use App\Controllers\Controller;
+use App\Views\Responser;
 use Exception;
 
 class Router
@@ -16,7 +17,7 @@ class Router
         'queryParams' => null
     ];
 
-    public static function run($uri)
+    public static function run($uri, $responser)
     {
         $id = null;
         $action = null;
@@ -42,13 +43,14 @@ class Router
             $action = $uriElements['action'];
         }
         return new self(
+            $responser,
             $uriElements['controller'] . 'Controller',
             $id,
             $action
         );
     }
 
-    public function __construct($controllerName = null, $id = null, $action = null)
+    public function __construct($responser, $controllerName = null, $id = null, $action = null)
     {
         switch (true) {
             case !empty($_REQUEST):
@@ -72,7 +74,7 @@ class Router
                 throw new Exception("Unexpected Header", 500);
             }
         }
-        $this->controllerAction = Controller::run($this->queryType, $controllerName, $id, $action, $this->queryParams);
+        $this->controllerAction = Controller::run($responser, $this->queryType, $controllerName, $id, $action, $this->queryParams);
     }
 
     public function result()
