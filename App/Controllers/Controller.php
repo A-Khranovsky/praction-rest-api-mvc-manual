@@ -14,7 +14,6 @@ abstract class Controller implements RestApi
         } else {
             throw new \Exception('Not found', 404);
         }
-
         if ($methodType == 'GET' && is_null($id) && is_null($action)) {
             return $controller->index();
         }
@@ -33,5 +32,6 @@ abstract class Controller implements RestApi
         if ($methodType == 'DELETE' && !is_null($id) && is_null($action)) {
             return $controller->destroy($id);
         }
+        throw new \Exception('Not found', 404);
     }
 }
