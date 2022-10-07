@@ -17,15 +17,10 @@ class Responser
 
     public function set(array|null $data, string $code)
     {
-        if (is_null($data)) {
-            $this->data = [];
-            $this->code = 204;
-        } else {
-            if (count($data) > 0) {
-                $this->data = $data;
-                $this->code = $code;
-            } else {
-                $this->data = [];
+        $this->code = $code;
+        $this->data = $data;
+        if(!is_null($data)) {
+            if (count($data) == 0) {
                 $this->code = 204;
             }
         }
@@ -35,6 +30,6 @@ class Responser
     {
         header("HTTP/1.1 " . $this->code . ' ' . $this->statuses[$this->code]);
         header('Content-Type: application/json; charset=utf-8');
-        return json_encode($this->data);
+        return !$this->data ? null : json_encode($this->data);
     }
 }
