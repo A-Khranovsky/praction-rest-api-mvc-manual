@@ -9,7 +9,7 @@ class TasksController extends Controller
 {
     private $model, $responser;
 
-    public function __construct($model, $responser)
+    public function __construct($responser, $model)
     {
         $this->model = $model;
         $this->responser = $responser;
