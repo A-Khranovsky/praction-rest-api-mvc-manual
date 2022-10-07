@@ -15,7 +15,7 @@ abstract class Model
         if (class_exists($modelClass)) {
             $model = new $modelClass(new Database());
         } else {
-            throw new \Exception('Not found', 404);
+            $model = null;
         }
         return $model;
     }

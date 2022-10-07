@@ -14,7 +14,7 @@ abstract class Controller implements RestApi
         $model = Model::run($resource);
 
         if (class_exists($controllerClass)) {
-            $controller = new $controllerClass($model, $responser);
+            $controller = new $controllerClass($responser, $model);
         } else {
             throw new \Exception('Not found', 404);
         }
