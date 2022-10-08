@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 namespace App\Models;
 
 use App\Config\Database;
@@ -91,37 +92,39 @@ class Task extends Model implements RestApi
 
     public function update($id, $queryParams)
     {
-
         $type_id = null;
         if (isset($queryParams['type'])) {
             $type_id = $this->type->getIdByName($queryParams['type']);
         }
         $sql = "update tasks set ";
-        foreach ($queryParams as $key => $value) {
-            if ($key == 'type') {
+        $last = end($queryParams);
+        foreach ($queryParams as $key => &$value) {
+            if ($key === 'type') {
                 continue;
-            }
-            if ($value === end($queryParams)) {
-                $sql .= $key . '=\'' . $value . '\'';
             } else {
-                $sql .= $key . '=\'' . $value . '\', ';
-            }
-        }
-        if (!is_null($type_id)) {
-            if (count($queryParams) === 1) {
-                $sql .= 'type_id=' . $type_id . ' ';
-            } else {
-                if ($queryParams['type'] === end($queryParams)) {
-                    $sql .= 'type_id=' . $type_id . ' ';
+                if ($value === $last) {
+                    if(is_bool($value)){
+                        $value = (int)$value;
+                    }
+                    $sql .= $key . "=?";
                 } else {
-                    $sql .= ', type_id=' . $type_id . ' ';
+                    if(is_bool($value)){
+                        $value = (int)$value;
+                    }
+                    $sql .= $key . "=?,";
                 }
             }
         }
-        $sql .= " where id=:id;";
+        if (isset($queryParams['type'])) {
+            $queryParams['type_id'] = $type_id;
+            unset($queryParams['type']);
+            $sql .= ",type_id=?";
+        }
+        $queryParams['id'] = $id;
+        $sql .= " where id=?";
         $result = $this->pdo->prepare($sql);
-        $result->bindParam(':id', $id);
-        $result->execute();
+        //exit(var_dump($sql, $queryParams));
+        $result->execute(array_values($queryParams));
         return null;
     }
 
