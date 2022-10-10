@@ -19,7 +19,7 @@ class Responser
     {
         $this->code = $code;
         $this->data = $data;
-        if(!is_null($data)) {
+        if (!is_null($data)) {
             if (count($data) == 0) {
                 $this->code = 204;
             }
