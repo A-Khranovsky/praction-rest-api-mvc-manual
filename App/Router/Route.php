@@ -66,47 +66,4 @@ class Route
     {
         self::$instance = $this;
     }
-
-//    static public function get($resource, $router)
-//    {
-//        self::$routes = [
-//            'tasks' => [
-//                '' => 'index',
-//                'create' => 'create',
-//                'edit' => 'edit'
-//            ],
-//            'auth' => [
-//                '' => 'index'
-//            ]
-//        ];
-//        return new self($resource, $router);
-//    }
-//    static public function post($resource, $router)
-//    {
-//        self::$routes = [
-//            'tasks' => [
-//                ''=>'store'
-//            ]
-//        ];
-//        return new self($resource, $router);
-//    }
-//
-//    static public function patch($resource, $router)
-//    {
-//        self::$routes = [
-//            'tasks' => [
-//                '' => 'update'
-//            ]
-//        ];
-//        return new self($resource, $router);
-//    }
-//    static public function delete($resource, $router)
-//    {
-//        self::$routes = [
-//            'tasks' => [
-//                '' =>'destroy'
-//            ]
-//        ];
-//        return new self($resource, $router);
-//    }
 }
