@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Config\Database;
@@ -103,12 +104,12 @@ class Task extends Model implements RestApi
                 continue;
             } else {
                 if ($value === $last) {
-                    if(is_bool($value)){
+                    if (is_bool($value)) {
                         $value = (int)$value;
                     }
                     $sql .= $key . "=?";
                 } else {
-                    if(is_bool($value)){
+                    if (is_bool($value)) {
                         $value = (int)$value;
                     }
                     $sql .= $key . "=?,";
