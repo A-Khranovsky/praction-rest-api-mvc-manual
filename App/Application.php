@@ -2,35 +2,45 @@
 
 namespace App;
 
+use App\Controllers\Controller;
 use App\Router\Router;
+use App\Routes\Route;
 use App\Views\Responser;
 
 class Application
 {
-    private $app;
+    private $router;
     private $result;
 
     public static function run($uri)
     {
         $responser = new Responser();
         try {
-            $app = Router::run($uri, $responser);
-            return new self($app);
+            $router = Router::run($uri, $responser);
+            Route::take()->run($router);
+            $router->controllerAction = Controller::run(
+                $router->responser,
+                $router->resource,
+                $router->id,
+                $router->controllerAction,
+                $router->queryParams
+            );
+            return new self($router);
         } catch (\Exception $exception) {
             $responser->set([
                 'error' => $exception->getMessage()
             ], $exception->getCode());
-            $app = new self();
-            $app->result = $responser->response();
-            return $app;
+            $router = new self();
+            $router->result = $responser->response();
+            return $router;
         }
     }
 
-    private function __construct($app = null)
+    private function __construct($router = null)
     {
-        if (!is_null($app)) {
-            $this->app = $app;
-            $this->result = $app->result();
+        if (!is_null($router)) {
+            $this->router = $router;
+            $this->result = $router->result();
         }
     }
 

@@ -2,11 +2,8 @@
 
 namespace App\Routes;
 
-use App\Controllers\Controller;
-
 class Route
 {
-    private $resource, $router;
     static private $instance = null;
     static private $routes;
     static private $GET = [];
@@ -51,29 +48,18 @@ class Route
         return self::$instance;
     }
 
-    public function run($resource, $router)
+    public function run($router)
     {
-        $this->router = $router;
-        $this->resource = $resource;
-
-        $routes = self::${$this->router->queryType};
+        $routes = self::${$router->queryType};
         foreach ($routes as $route) {
             if(
-                $route[0] == $resource
+                $route[0] == $router->resource
                 &&
-                $route[1] == $this->router->action
+                $route[1] == $router->action
             ){
-                $controllerAction = $route[2];
+                $router->controllerAction = $route[2];
             }
         }
-
-        $this->router->controllerAction = Controller::run(
-            $router->responser,
-            $router->resource,
-            $router->id,
-            $controllerAction,
-            $router->queryParams
-        );
     }
 
     private function __construct()

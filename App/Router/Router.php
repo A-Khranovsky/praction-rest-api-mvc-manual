@@ -7,7 +7,7 @@ use Exception;
 
 class Router
 {
-    public $queryType, $queryParams, $controllerAction;
+    public $queryType, $queryParams, $controllerAction, $resource, $responser, $id, $action;
 
     private const uriTemplate = [
         'api' => null,
@@ -54,7 +54,7 @@ class Router
     public function __construct($responser, $resource, $id = null, $action = null)
     {
         $this->responser = $responser;
-        $this->resource =$resource;
+        $this->resource = $resource;
         $this->id = $id;
         $this->action = $action;
 
@@ -80,26 +80,7 @@ class Router
                 throw new Exception("Unexpected Header", 500);
             }
         }
-
-//        switch ($this->queryType){
-//            case 'GET' :
-//                //Route::get($resource, $this);
-//                break;
-//            case 'POST' :
-//                //Route::post($resource, $this);
-//                break;
-//            case 'PATCH' :
-//                //Route::patch($resource, $this);
-//                break;
-//            case 'DELETE' :
-//                //Route::delete($resource, $this);
-//                break;
-//            default:
-//                break;
-//        }
-        Route::take()->run($resource, $this);
     }
-
 
     public function result()
     {
