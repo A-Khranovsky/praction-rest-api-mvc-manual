@@ -2,7 +2,6 @@
 
 namespace App\Router;
 
-use App\Controllers\Controller;
 use App\Routes\Route;
 use Exception;
 
@@ -65,7 +64,6 @@ class Router
                 break;
             case !empty(file_get_contents("php://input")):
                 $this->queryParams = json_decode(file_get_contents("php://input"), true);
-                //exit(var_dump($this->queryParams));
                 break;
             default:
                 $this->queryParams = null;
@@ -83,35 +81,25 @@ class Router
             }
         }
 
-        switch ($this->queryType){
-            case 'GET' :
-                //exit(var_dump(Route::get($resource, $this)));
-                Route::get($resource, $this);
-                break;
-            case 'POST' :
-                Route::post($resource, $this);
-                break;
-//            case 'PUT' :
-//                $this->controllerAction = Route::put($resource, $this);
+//        switch ($this->queryType){
+//            case 'GET' :
+//                //Route::get($resource, $this);
 //                break;
-            case 'PATCH' :
-                Route::patch($resource, $this);
-                break;
-            case 'DELETE' :
-                Route::delete($resource, $this);
-                break;
-            default:
-                break;
-        }
-//        $this->controllerAction = Controller::run(
-//            $responser,
-//            $this->queryType,
-//            $resource,
-//            $id,
-//            $action,
-//            $this->queryParams
-//        );
+//            case 'POST' :
+//                //Route::post($resource, $this);
+//                break;
+//            case 'PATCH' :
+//                //Route::patch($resource, $this);
+//                break;
+//            case 'DELETE' :
+//                //Route::delete($resource, $this);
+//                break;
+//            default:
+//                break;
+//        }
+        Route::take()->run($resource, $this);
     }
+
 
     public function result()
     {
