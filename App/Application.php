@@ -3,8 +3,8 @@
 namespace App;
 
 use App\Controllers\Controller;
+use App\Router\Route;
 use App\Router\Router;
-use App\Routes\Route;
 use App\Views\Responser;
 
 class Application
