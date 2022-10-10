@@ -2,10 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Interfaces\RestApi;
 use App\Models\Task;
 use App\Views\Responser;
 
-class TasksController extends Controller
+class TasksController extends Controller implements RestApi
 {
     private $model, $responser;
 
