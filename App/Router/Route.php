@@ -4,14 +4,13 @@ namespace App\Router;
 
 class Route
 {
-    private static $instance = null;
-    private static $routes;
+    private static ?Route $instance = null;
     private static $GET = [];
     private static $POST = [];
     private static $PATCH = [];
     private static $DELETE = [];
 
-    public static function get($resource, $action, $controllerAction)
+    public static function get(string $resource, string|null $action, string|null $controllerAction)
     {
         self::$GET[] = [$resource, $action, $controllerAction];
         if (is_null(self::$instance)) {
@@ -19,7 +18,7 @@ class Route
         }
     }
 
-    public static function post($resource, $action, $controllerAction)
+    public static function post(string $resource, string|null $action, string|null $controllerAction)
     {
         self::$POST[] = [$resource, $action, $controllerAction];
         if (is_null(self::$instance)) {
@@ -27,7 +26,7 @@ class Route
         }
     }
 
-    public static function patch($resource, $action, $controllerAction)
+    public static function patch(string $resource, string|null $action, string|null $controllerAction)
     {
         self::$PATCH[] = [$resource, $action, $controllerAction];
         if (is_null(self::$instance)) {
@@ -35,7 +34,7 @@ class Route
         }
     }
 
-    public static function delete($resource, $action, $controllerAction)
+    public static function delete(string $resource, string|null $action, string|null $controllerAction)
     {
         self::$DELETE[] = [$resource, $action, $controllerAction];
         if (is_null(self::$instance)) {
@@ -43,12 +42,12 @@ class Route
         }
     }
 
-    public static function take()
+    public static function take(): ?Route
     {
         return self::$instance;
     }
 
-    public function run($router)
+    public function run(Router $router)
     {
         $routes = self::${$router->queryType};
         foreach ($routes as $route) {
