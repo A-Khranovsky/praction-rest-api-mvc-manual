@@ -9,7 +9,6 @@ use App\Views\Responser;
 
 class Application
 {
-    private $router;
     private $result;
 
     public static function run($uri)
@@ -39,7 +38,6 @@ class Application
     private function __construct($router = null)
     {
         if (!is_null($router)) {
-            $this->router = $router;
             $this->result = $router->result();
         }
     }
