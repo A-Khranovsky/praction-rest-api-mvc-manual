@@ -2,7 +2,11 @@
 Web-app is like to do list. There are able to create new task, edit, delete, see all.
 
 #### Vocation
+<<<<<<< HEAD
 Build web-app without the framework, learn PHP, OOP deeper.
+=======
+Build web-app without the framework, learn PHP, OOP, SOLID deeper.
+>>>>>>> origin/router_sets_route
 
 #### Description
 Web-app uses MVC pattern, and it is extensible. There are able to add other controllers, models, routes.

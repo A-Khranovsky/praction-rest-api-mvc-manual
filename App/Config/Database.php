@@ -10,10 +10,10 @@ class Database
     public $pdo = null;
     public const FETCH_ASSOC = PDO::FETCH_ASSOC;
     private const driver = 'mysql';
-    private const host = 'coffee20.mysql.tools';
-    private const userName = 'coffee20_khranovskiy';
-    private const password = '4k3s6vUNkK5H';
-    private const database = 'coffee20_khranovskiy';
+    private const host = 'mysql';
+    private const userName = 'root';
+    private const password = 'secret';
+    private const database = 'laravel';
     private const port = '3306';
     private const charset = 'utf8';
 
