@@ -4,15 +4,15 @@ namespace App\Interfaces;
 
 interface RestApi
 {
-    public function index();
+    public function index(): array|string|null;
 
-    public function create();
+    public function create(): array|string;
 
-    public function store(array $queryParams);
+    public function store(array $queryParams): ?string;
 
-    public function edit(int $id);
+    public function edit(int $id): ?string;
 
-    public function update(int $id, array $queryParams);
+    public function update(int $id, array $queryParams): ?string;
 
-    public function destroy(int $id);
+    public function destroy(int $id): ?string;
 }

@@ -3,21 +3,22 @@
 namespace App\Models;
 
 use App\Config\Database;
+use PDO;
 
 class Type extends Model
 {
-    private $pdo;
+    private PDO $pdo;
     private array $fields = [
         'id' => 'integer',
         'name' => 'string'
     ];
 
-    public function __construct($db)
+    public function __construct(Database $db)
     {
         $this->pdo = $db->pdo;
     }
 
-    public function getIdByName(string $name)
+    public function getIdByName(string $name): array
     {
         $sql = "select id from types where name=:name";
         $result = $this->pdo->prepare($sql);
@@ -26,7 +27,7 @@ class Type extends Model
         return $result->fetch(Database::FETCH_ASSOC)['id'];
     }
 
-    public function all()
+    public function all(): array
     {
         $sql = "select * from types";
         $result = $this->pdo->prepare($sql);

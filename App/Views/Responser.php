@@ -26,7 +26,7 @@ class Responser
         }
     }
 
-    public function response()
+    public function response(): string|null
     {
         header("HTTP/1.1 " . $this->code . ' ' . $this->statuses[$this->code]);
         header('Content-Type: application/json; charset=utf-8');

@@ -53,17 +53,17 @@ class Task extends Model implements RestApi
         return $tasks;
     }
 
-    public function index()
+    public function index(): array|string|null
     {
         return $this->joinAndPaste($this->type, 'type_id', 'type');
     }
 
-    public function create()
+    public function create(): array
     {
         return $this->fields;
     }
 
-    public function store($queryParams)
+    public function store($queryParams): ?string
     {
         $type_id = null;
         if (isset($queryParams['type'])) {
@@ -82,7 +82,7 @@ class Task extends Model implements RestApi
         return null;
     }
 
-    public function edit($id)
+    public function edit($id): ?string
     {
         $sql = "select * from tasks where id=:id;";
         $result = $this->pdo->prepare($sql);
@@ -91,7 +91,7 @@ class Task extends Model implements RestApi
         return $result->fetchAll(Database::FETCH_ASSOC);
     }
 
-    public function update($id, $queryParams)
+    public function update($id, $queryParams): ?string
     {
         $type_id = null;
         if (isset($queryParams['type'])) {
@@ -124,12 +124,11 @@ class Task extends Model implements RestApi
         $queryParams['id'] = $id;
         $sql .= " where id=?";
         $result = $this->pdo->prepare($sql);
-        //exit(var_dump($sql, $queryParams));
         $result->execute(array_values($queryParams));
         return null;
     }
 
-    public function destroy($id)
+    public function destroy($id): ?string
     {
         $sql = "delete from tasks where id=:id;";
         $result = $this->pdo->prepare($sql);
