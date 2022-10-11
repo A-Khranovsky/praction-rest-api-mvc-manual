@@ -47,7 +47,7 @@ class Route
         return self::$instance;
     }
 
-    public function run(Router $router)
+    public function run(Router $router): void
     {
         $routes = self::${$router->queryType};
         foreach ($routes as $route) {
