@@ -2,12 +2,14 @@
 
 namespace App\Router;
 
-use App\Routes\Route;
+use App\Views\Responser;
 use Exception;
 
 class Router
 {
-    public $queryType, $queryParams, $controllerAction, $resource, $responser, $id, $action;
+    public string $queryType;
+    public array|null $queryParams;
+    public array|string|null $controllerAction;
 
     private const uriTemplate = [
         'api' => null,
@@ -17,7 +19,10 @@ class Router
         'queryParams' => null
     ];
 
-    public static function run($uri, $responser)
+    /**
+     * @throws Exception
+     */
+    public static function run(string $uri, Responser $responser): Router
     {
         $id = null;
         $action = null;
@@ -51,24 +56,23 @@ class Router
         );
     }
 
-    public function __construct($responser, $resource, $id = null, $action = null)
+    /**
+     * @throws Exception
+     */
+    public function __construct(
+        public Responser $responser,
+        public string $resource,
+        public int|null $id = null,
+        public string|null $action = null
+    )
     {
-        $this->responser = $responser;
-        $this->resource = $resource;
-        $this->id = $id;
-        $this->action = $action;
-
-        switch (true) {
-            case !empty($_REQUEST):
-                $this->queryParams = $_REQUEST; //GET Request
-                break;
-            case !empty(file_get_contents("php://input")):
-                $this->queryParams = json_decode(file_get_contents("php://input"), true);
-                break;
-            default:
-                $this->queryParams = null;
-                break;
-        }
+        $this->queryParams = match (true) {
+            !empty($_REQUEST) => $_REQUEST, // get method
+            !empty(file_get_contents("php://input")) => json_decode(
+                file_get_contents("php://input"), true
+            ),
+            default => null,
+        };
 
         $this->queryType = $_SERVER['REQUEST_METHOD'];
         if ($this->queryType == 'POST' && array_key_exists('HTTP_X_HTTP_METHOD', $_SERVER)) {
@@ -82,7 +86,7 @@ class Router
         }
     }
 
-    public function result()
+    public function result(): string|array|null
     {
         return $this->controllerAction;
     }

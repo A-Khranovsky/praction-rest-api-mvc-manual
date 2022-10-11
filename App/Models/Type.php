@@ -18,7 +18,7 @@ class Type extends Model
         $this->pdo = $db->pdo;
     }
 
-    public function getIdByName(string $name): array
+    public function getIdByName(string $name): int
     {
         $sql = "select id from types where name=:name";
         $result = $this->pdo->prepare($sql);
