@@ -7,7 +7,7 @@ use PDOException;
 
 class Database
 {
-    public $pdo = null;
+    public PDO $pdo;
     public const FETCH_ASSOC = PDO::FETCH_ASSOC;
     private const driver = 'mysql';
     private const host = 'mysql';
