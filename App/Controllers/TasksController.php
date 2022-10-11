@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Interfaces\RestApi;
+use App\Models\Model;
 use App\Models\Task;
 use App\Views\Responser;
 
@@ -10,11 +11,12 @@ class TasksController extends Controller implements RestApi
 {
     private $model, $responser;
 
-    public function __construct($responser, $model)
+    public function __construct(Responser $responser, Model $model)
     {
         $this->model = $model;
         $this->responser = $responser;
     }
+
     public function index()
     {
         $this->responser->set([$this->model->index()], 200);

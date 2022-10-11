@@ -3,10 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\Model;
+use App\Views\Responser;
 
 abstract class Controller
 {
-    public static function run($responser, $resource, $id, $action, $queryParams)
+    public static function run(
+        Responser $responser,
+        string $resource,
+        int|null $id,
+        string $action,
+        array|null $queryParams
+    )
     {
         $controllerName = $resource . 'Controller';
         $controllerClass = __NAMESPACE__ . '\\' . ucfirst($controllerName);
