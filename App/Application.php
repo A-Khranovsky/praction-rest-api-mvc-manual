@@ -42,7 +42,7 @@ class Application
         }
     }
 
-    public function response(): array|string|null
+    public function result(): array|string|null
     {
         return $this->result;
     }
