@@ -20,7 +20,7 @@ class Task extends Model implements RestApi
     private $type;
 
 
-    public function __construct($db)
+    public function __construct(Database $db)
     {
         $this->type = new Type($db); // has many types
         $this->pdo = $db->pdo;
