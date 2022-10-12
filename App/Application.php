@@ -9,9 +9,9 @@ use App\Views\Responser;
 
 class Application
 {
-    private $result;
+    private string|array|null $result;
 
-    public static function run($uri)
+    public static function run(string $uri): Application|Router
     {
         $responser = new Responser();
         try {
@@ -35,14 +35,14 @@ class Application
         }
     }
 
-    private function __construct($router = null)
+    private function __construct(Router|null $router = null)
     {
         if (!is_null($router)) {
             $this->result = $router->result();
         }
     }
 
-    public function response()
+    public function response(): array|string|null
     {
         return $this->result;
     }
