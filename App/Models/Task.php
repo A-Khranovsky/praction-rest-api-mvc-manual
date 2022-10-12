@@ -82,7 +82,7 @@ class Task extends Model implements RestApi
         return null;
     }
 
-    public function edit($id): ?string
+    public function edit($id): string|array|null
     {
         $sql = "select * from tasks where id=:id;";
         $result = $this->pdo->prepare($sql);

@@ -10,7 +10,7 @@ interface RestApi
 
     public function store(array $queryParams): ?string;
 
-    public function edit(int $id): ?string;
+    public function edit(int $id): string|array|null;
 
     public function update(int $id, array $queryParams): ?string;
 
