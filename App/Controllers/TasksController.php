@@ -14,9 +14,9 @@ class TasksController extends Controller implements RestApi
         private Model $model
     ){}
 
-    public function index(): string|null
+    public function index(...$queryParams): string|null
     {
-        $this->responser->set([$this->model->index()], 200);
+        $this->responser->set($this->model->index($queryParams), 200);
         return $this->responser->response();
     }
 

@@ -9,14 +9,14 @@ class Router
 {
     public string $queryType;
     public array|null $queryParams;
-    public array|string|null $controllerAction;
+    public array|string|null $controllerAction = null;
 
     private const uriTemplate = [
         'api' => null,
         'resource' => null,
         'idOrAction' => null,
         'action' => null,
-        'queryParams' => null
+        'queryParams' => []
     ];
 
     /**
@@ -27,7 +27,12 @@ class Router
         $id = null;
         $action = null;
         $uriElements = [];
-        $uri = array_slice(preg_split("/[\/?]/", $uri), 1);
+        if (str_contains($uri, '?')) {
+            $uri = array_slice(preg_split("/[\/?]/", $uri), 1);
+            array_pop($uri);
+        } else {
+            $uri = array_slice(preg_split("/[\/?]/", $uri), 1);
+        }
         foreach (Router::uriTemplate as $key => $item) {
             $uriElements[$key] = current($uri) !== false ? current($uri) : null;
             next($uri);
@@ -71,7 +76,7 @@ class Router
             !empty(file_get_contents("php://input")) => json_decode(
                 file_get_contents("php://input"), true
             ),
-            default => null,
+            default => [],
         };
 
         $this->queryType = $_SERVER['REQUEST_METHOD'];

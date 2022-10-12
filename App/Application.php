@@ -17,6 +17,7 @@ class Application
         try {
             $router = Router::run($uri, $responser);
             Route::take()->run($router);
+            //exit(var_dump($router->queryParams));
             $router->controllerAction = Controller::run(
                 $router->responser,
                 $router->resource,

@@ -27,22 +27,37 @@ class Task extends Model implements RestApi
         $this->pdo = $db->pdo;
     }
 
-    public function all(): array
+    public function all($params): array
     {
-        $sql = "select * from tasks;";
-        $result = $this->pdo->prepare($sql);
-        $result->execute();
-        return $result->fetchAll(Database::FETCH_ASSOC);
+        if (empty($params)) {
+            $sql = "select * from tasks;";
+            $result = $this->pdo->prepare($sql);
+            $result->execute();
+            return $result->fetchAll(Database::FETCH_ASSOC);
+        } else {
+            $sql = "select * from tasks where";
+            $last = end($params[0]);
+            foreach ($params[0] as $key => $value){
+                if($value !== $last) {
+                    $sql .= ' ' . $key . '=:' . $key . ' and ';
+                } else{
+                    $sql .= ' ' . $key . '=:' . $key . ';';
+                }
+            }
+            $result = $this->pdo->prepare($sql);
+            $result->execute($params[0]);
+            return $result->fetchAll(Database::FETCH_ASSOC);
+        }
     }
 
-    private function joinAndPaste(Type $type, string $foriegnKeyOfCurrentTb, string $pastedName): array
+    private function joinAndPaste(Type $type, string $foriegnKeyOfCurrentTb, string $pastedName, array $queryParams): array
     {
         $idAndNames = [];
         $types = $type->all();
         foreach ($types as $item) {
             $idAndNames[$item['id']] = $item['name'];
         }
-        $tasks = $this->all();
+        $tasks = $this->all($queryParams);
         foreach ($tasks as &$item) {
             foreach ($item as $key => $value) {
                 if ($key === $foriegnKeyOfCurrentTb) {
@@ -54,9 +69,10 @@ class Task extends Model implements RestApi
         return $tasks;
     }
 
-    public function index(): array
+    public function index(...$queryParams): array
     {
-        return $this->joinAndPaste($this->type, 'type_id', 'type');
+        //exit(var_dump($queryParams));
+        return $this->joinAndPaste($this->type, 'type_id', 'type', $queryParams);
     }
 
     public function create(): array

@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 interface RestApi
 {
-    public function index(): array|string|null;
+    public function index(...$queryParams): array|string|null;
 
     public function create(): array|string;
 
