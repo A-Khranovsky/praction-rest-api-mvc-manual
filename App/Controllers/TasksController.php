@@ -20,7 +20,7 @@ class TasksController extends Controller implements RestApi
         return $this->responser->response();
     }
 
-    public function create(): array|string
+    public function create(): string
     {
         $this->responser->set($this->model->create(), 200);
         return $this->responser->response();

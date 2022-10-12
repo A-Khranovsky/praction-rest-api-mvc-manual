@@ -38,7 +38,7 @@ class Application
     private function __construct(Router|null $router = null)
     {
         if (!is_null($router)) {
-            $this->result = $router->result();
+            $this->result = $router->controllerAction;
         }
     }
 

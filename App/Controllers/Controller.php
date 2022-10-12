@@ -16,7 +16,7 @@ abstract class Controller
         int|null $id,
         string|null $action,
         array|null $queryParams
-    )
+    ): array|string|null
     {
         $controllerName = $resource . 'Controller';
         $controllerClass = __NAMESPACE__ . '\\' . ucfirst($controllerName);

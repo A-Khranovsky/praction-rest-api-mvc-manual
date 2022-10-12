@@ -85,9 +85,4 @@ class Router
             }
         }
     }
-
-    public function result(): string|array|null
-    {
-        return $this->controllerAction;
-    }
 }

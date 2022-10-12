@@ -54,7 +54,7 @@ class Task extends Model implements RestApi
         return $tasks;
     }
 
-    public function index(): array|string|null
+    public function index(): array
     {
         return $this->joinAndPaste($this->type, 'type_id', 'type');
     }
@@ -83,7 +83,7 @@ class Task extends Model implements RestApi
         return null;
     }
 
-    public function edit($id): string|array|null
+    public function edit($id): array
     {
         $sql = "select * from tasks where id=:id;";
         $result = $this->pdo->prepare($sql);
