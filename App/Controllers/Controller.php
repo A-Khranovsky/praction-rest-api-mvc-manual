@@ -7,6 +7,9 @@ use App\Views\Responser;
 
 abstract class Controller
 {
+    /**
+     * @throws \Exception
+     */
     public static function run(
         Responser $responser,
         string $resource,
@@ -20,7 +23,7 @@ abstract class Controller
         $model = Model::run($resource);
 
         if (class_exists($controllerClass)) {
-            $controller = new $controllerClass($responser, $model);
+            $controller = new $controllerClass(responser: $responser, model: $model);
             $params = (is_null($id) && $queryParams) ? [$queryParams] : [$id, $queryParams];
             return call_user_func_array([$controller, $action], $params);
         } else {

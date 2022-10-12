@@ -9,14 +9,10 @@ use App\Views\Responser;
 
 class TasksController extends Controller implements RestApi
 {
-    private Model $model;
-    private Responser $responser;
-
-    public function __construct(Responser $responser, Model $model)
-    {
-        $this->model = $model;
-        $this->responser = $responser;
-    }
+    public function __construct(
+        private Responser $responser,
+        private Model $model
+    ){}
 
     public function index(): string|null
     {

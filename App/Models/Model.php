@@ -6,7 +6,7 @@ use App\Config\Database;
 
 abstract class Model
 {
-    public static function run(string $resource)
+    public static function run(string $resource): ?Model
     {
         $modelName = substr_replace($resource, '', -1);
         $modelClass = __NAMESPACE__ . '\\' . ucfirst($modelName);
