@@ -6,10 +6,11 @@ namespace App\Models;
 
 use App\Config\Database;
 use App\Interfaces\RestApi;
+use PDO;
 
 class Task extends Model implements RestApi
 {
-    private $pdo;
+    private PDO $pdo;
     private array $fields = [
         'id' => 'integer',
         'description' => 'text',
@@ -17,7 +18,7 @@ class Task extends Model implements RestApi
         'finish_date' => 'string Y-m-d',
         'urgently' => 'boolean'
     ];
-    private $type;
+    private Model $type;
 
 
     public function __construct(Database $db)
@@ -26,7 +27,7 @@ class Task extends Model implements RestApi
         $this->pdo = $db->pdo;
     }
 
-    public function all()
+    public function all(): array
     {
         $sql = "select * from tasks;";
         $result = $this->pdo->prepare($sql);
@@ -34,7 +35,7 @@ class Task extends Model implements RestApi
         return $result->fetchAll(Database::FETCH_ASSOC);
     }
 
-    private function joinAndPaste(Type $type, string $foriegnKeyOfCurrentTb, string $pastedName)
+    private function joinAndPaste(Type $type, string $foriegnKeyOfCurrentTb, string $pastedName): array
     {
         $idAndNames = [];
         $types = $type->all();
