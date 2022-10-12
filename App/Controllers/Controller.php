@@ -14,7 +14,7 @@ abstract class Controller
         Responser $responser,
         string $resource,
         int|null $id,
-        string $action,
+        string|null $action,
         array|null $queryParams
     )
     {
