@@ -98,4 +98,80 @@ DELETE http://localhost/api/tasks/id
 Content-Type: application/json
 Accept: application/json
 ```
+#### Some examples
+```http request
+GET http://localhost:80/api/tasks
 
+HTTP/1.1 200 OK
+Date: Wed, 12 Oct 2022 12:57:09 GMT
+Server: Apache/2.4.52 (Debian)
+X-Powered-By: PHP/8.1.2
+Content-Length: 496
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: application/json; charset=utf-8
+
+[
+  [
+    {
+      "id": 2,
+      "description": "Намалювати інтерфейс цієї програми",
+      "file": "40.png",
+      "finish_date": "2022-10-04",
+      "urgently": 0,
+      "type": "Робочі"
+    },
+    {
+      "id": 4,
+      "description": "Поїсти",
+      "file": "12.png",
+      "finish_date": "2022-10-04",
+      "urgently": 1,
+      "type": "Особисті"
+    }
+  ]
+]
+
+Response code: 200 (OK); Time: 203ms; Content length: 241 bytes
+```
+```http request
+GET http://localhost:80/api/tasks/2/edit
+
+HTTP/1.1 200 OK
+Date: Wed, 12 Oct 2022 12:58:18 GMT
+Server: Apache/2.4.52 (Debian)
+X-Powered-By: PHP/8.1.2
+Content-Length: 284
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: application/json; charset=utf-8
+
+[
+  {
+    "id": 2,
+    "description": "Намалювати інтерфейс цієї програми",
+    "file": "40.png",
+    "finish_date": "2022-10-04",
+    "urgently": 0,
+    "type_id": 2
+  }
+]
+
+Response code: 200 (OK); Time: 178ms; Content length: 129 bytes
+```
+```http request
+DELETE http://localhost/api/tasks/2
+
+HTTP/1.1 201 Created
+Date: Wed, 12 Oct 2022 12:58:58 GMT
+Server: Apache/2.4.52 (Debian)
+X-Powered-By: PHP/8.1.2
+Content-Length: 0
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: application/json; charset=utf-8
+
+<Response body is empty>
+
+Response code: 201 (Created); Time: 170ms; Content length: 0 bytes
+```
