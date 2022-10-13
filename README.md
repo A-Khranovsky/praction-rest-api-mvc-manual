@@ -55,6 +55,10 @@ true,
 ```http request
 GET http://localhost/api/tasks
 ```
+##### Watching all the tasks with filter by file name:
+```http request
+GET http://localhost/api/tasks?file=12.png
+```
 ##### Store new:
 ```http request
 POST http://localhost/api/tasks
