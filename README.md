@@ -14,10 +14,10 @@ the exceptions and handles it. ORM is not used, models communicate with the DB.
 #### How to run
 
 * Clone the repository (use branch: router_sets_route)
-* ```angular2html docker-compose up -d```
-* ```angular2html docker exec -it 58_mysql_1 /bin/sh```
-* ```angular2html mysql -u root -p ``` password is: secret
-* ```angular2html use mysql;```
+* ```docker-compose up -d```
+* ```docker exec -it 58_mysql_1 /bin/sh```
+* ```mysql -u root -p ``` password is: secret
+* ```use mysql;```
 * Run SQL queries:
 ```sql
 create table types (
