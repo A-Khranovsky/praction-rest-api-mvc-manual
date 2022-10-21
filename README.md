@@ -17,7 +17,7 @@ the exceptions and handles it. ORM is not used, models communicate with the DB.
 * ```docker-compose up -d```
 * ```docker exec -it 58_mysql_1 /bin/sh```
 * ```mysql -u root -p ``` password is: secret
-* ```use mysql;```
+* ```use mydb;```
 * Run SQL queries:
 ```sql
 create table types (
